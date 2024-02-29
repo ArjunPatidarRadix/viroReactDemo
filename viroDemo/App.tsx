@@ -2,6 +2,7 @@ import { ViroARSceneNavigator } from "@viro-community/react-viro";
 import React, { useState } from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { HelloWorldSceneAR } from "./src/HelloWorldSceneAR";
+import { NewScene } from "./src/NewScene";
 
 export default () => {
   const [object, setObject] = useState("ironman");
@@ -10,9 +11,8 @@ export default () => {
       <ViroARSceneNavigator
         autofocus={true}
         initialScene={{
-          scene: HelloWorldSceneAR,
+          scene: NewScene,
         }}
-        viroAppProps={{ object: object }}
         style={styles.f1}
       />
       <View style={styles.controls}>
