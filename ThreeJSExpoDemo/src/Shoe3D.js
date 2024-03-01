@@ -24,9 +24,6 @@ export const Shoe3D = () => {
           child.material.map = base;
           child.material.specularMap = normal;
           child.material.bumpmap = rough;
-          child.material.bumpScale = 0.16;
-          child.castShadow = true;
-          child.receiveShadow = true;
         }
       });
     }, []);
@@ -48,7 +45,7 @@ export const Shoe3D = () => {
     });
     return (
       <mesh rotation={[-1, 0, 0]} ref={meshRef}>
-        <primitive object={obj} scale={0.6} position={props.position} />
+        <primitive object={obj} scale={0.4} position={props.position} />
       </mesh>
     );
   };
@@ -71,7 +68,7 @@ export const Shoe3D = () => {
       </mesh> */}
       <Suspense fallback={null}>
         {/* <Shoe  position={[1, 2, 2]} /> */}
-        <Shoe position={[0, 0.5, 0]} animatedSensor={animatedSensor} />
+        <Shoe position={[0, 3, 0]} animatedSensor={animatedSensor} />
       </Suspense>
     </Canvas>
   );

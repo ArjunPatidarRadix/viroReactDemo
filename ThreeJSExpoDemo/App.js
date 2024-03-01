@@ -4,10 +4,7 @@ import { Shoe3D } from "./src/Shoe3D";
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.modalContainer}>
-        <Shoe3D />
-      </View>
-      <View style={styles.detailContainer}></View>
+      <Shoe3D />
     </SafeAreaView>
   );
 }
