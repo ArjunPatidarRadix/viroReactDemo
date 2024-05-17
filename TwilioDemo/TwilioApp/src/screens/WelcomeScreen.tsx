@@ -1,19 +1,33 @@
-import {useState} from 'react';
+import { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
-} from 'react-native';
-import {CHAT_LIST, colors} from '../Utils/AppConstants';
-import Entypo from 'react-native-vector-icons/Entypo';
+} from "react-native";
+import { CHAT_LIST, colors } from "../Utils/AppConstants";
+import Entypo from "react-native-vector-icons/Entypo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const WelcomeScreen = ({navigation}: {navigation: any}) => {
-  const [username, setUsername] = useState('');
+export const WelcomeScreen = ({ navigation }: { navigation: any }) => {
+  const [username, setUsername] = useState("");
+
+  const getUser = async () => {
+    const user = await AsyncStorage.getItem("user");
+    if (user) {
+      await navigation.replace(CHAT_LIST, { username: user });
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   const onLoginPress = async () => {
-    if (username !== '') {
-      await navigation.replace(CHAT_LIST, {username});
+    if (username !== "") {
+      await AsyncStorage.setItem("user", username);
+      await navigation.replace(CHAT_LIST, { username });
     }
   };
 
@@ -23,7 +37,7 @@ export const WelcomeScreen = ({navigation}: {navigation: any}) => {
         name="chat"
         size={100}
         color={colors.text}
-        style={{marginBottom: 30}}
+        style={{ marginBottom: 30 }}
       />
       <View style={styles.container}>
         <Text style={styles.welcomeText}>Welcome to Twilio chat</Text>
@@ -40,7 +54,8 @@ export const WelcomeScreen = ({navigation}: {navigation: any}) => {
           style={[
             styles.button,
             !username ? styles.buttonDisabled : styles.buttonEnable,
-          ]}>
+          ]}
+        >
           <Text style={styles.welcomeText}>Login</Text>
         </TouchableOpacity>
       </View>
@@ -51,8 +66,8 @@ export const WelcomeScreen = ({navigation}: {navigation: any}) => {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: colors.background,
   },
   textbox: {
@@ -65,8 +80,8 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 10,
     padding: 10,
     shadowColor: colors.shadow,
@@ -84,7 +99,7 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     color: colors.text,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 17,
   },
   button: {
